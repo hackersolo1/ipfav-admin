@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPFAV - Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <!-- Ícones Lucide (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Header Fixo -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="logo-icon">✝️</div>
+                    <div class="logo-text">
+                        <h1>IPFAV</h1>
+                        <p>Sistema de Gestão</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Perfil do usuário -->
+                <div class="user-profile">
+                    <div class="user-info">
+                        <p class="user-name">Admin</p>
+                        <p class="user-role">Administrador</p>
+                    </div>
+                    <div class="user-avatar">A</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="main-container">
+        <!-- Sidebar de Navegação -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="home" id="btnHome">
+                    <i data-lucide="home"></i>
+                    <span>Início</span>
+                </button>
+                <button class="nav-item" data-view="posts" id="btnPosts">
+                    <i data-lucide="file-text"></i>
+                    <span>Avisos</span>
+                </button>
+                <button class="nav-item" data-view="events" id="btnEvents">
+                    <i data-lucide="calendar"></i>
+                    <span>Eventos</span>
+                </button>
+                <button class="nav-item" data-view="team" id="btnTeam">
+                    <i data-lucide="book-user"></i>
+                    <span>Equipe</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="content">
+            <!-- VIEW: HOME (Dashboard) -->
+            <div id="view-home" class="view active">
+                <div class="view-header">
+                    <div>
+                        <h2 class="view-title">Bem-vindo de volta! 👋</h2>
+                        <p class="view-subtitle">Aqui está um resumo do que está acontecendo</p>
+                    </div>
+                    <div class="view-actions">
+                        <button class="btn btn-secondary" id="btnNewPost">
+                            <i data-lucide="plus"></i>
+                            Nova Postagem
+                        </button>
+                        <button class="btn btn-primary" id="btnNewEvent">
+                            <i data-lucide="plus"></i>
+                            Novo Evento
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards de Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-icon">
+                            <i data-lucide="calendar"></i>
+                        </div>
+                        <p class="stat-value-event stat-value">0</p>
+                        <p class="stat-label">Eventos este mês</p>
+                    </div>
+                    <div class="stat-card indigo">
+                        <div class="stat-icon">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                        <p class="stat-value-post stat-value">0</p>
+                        <p class="stat-label">Avisos ativos</p>
+                    </div>
+                    <div class="stat-card purple">
+                        <div class="stat-icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <p class="stat-value-member stat-value">0</p>
+                        <p class="stat-label">Membros da equipe</p>
+                    </div>
+                </div>
+
+                <!-- Grid de Duas Colunas -->
+                <div class="two-column-grid">
+                    <!-- Próximos Eventos -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i data-lucide="calendar"></i>
+                                Próximos Eventos
+                            </h3>
+                            <a href="#" class="card-link" id="card-link-events">
+                                Ver todos
+                                <i data-lucide="chevron-right"></i>
+                            </a>
+                        </div>
+                        <div id="upcomingEventsList" class="event-list">
+                            <!-- Eventos serão inseridos aqui via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Postagens Recentes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i data-lucide="file-text"></i>
+                                Avisos Recentes
+                            </h3>
+                            <a href="#" class="card-link" id="card-link-posts">
+                                Ver todas
+                                <i data-lucide="chevron-right"></i>
+                            </a>
+                        </div>
+                        <div id="recentPostsList" class="post-list">
+                            <!-- Posts serão inseridos aqui via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- VIEW: POSTS -->
+        <div id="view-posts" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Gerenciar Avisos</h2>
+                <button class="btn btn-primary" id="btnNewPost2">
+                    <i data-lucide="plus"></i>
+                    Novo Aviso
+                </button>
+            </div>
+            <div class="card2">
+                <div id="postsManageList" class="manage-list">
+                    <!-- Posts para gerenciar -->
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: EVENTS -->
+        <div id="view-events" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Gerenciar Eventos</h2>
+                <button class="btn btn-primary" id="btnNewEvent2">
+                    <i data-lucide="plus"></i>
+                    Novo Evento
+                </button>
+            </div>
+            <div class="card2">
+                <div id="eventsManageList" class="manage-list">
+                    <!-- Eventos para gerenciar -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- VIEW: TEAM -->
+        <div id="view-team" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Equipe</h2>
+                <button class="btn btn-primary" id="btnNewMember">
+                    <i data-lucide="plus"></i>
+                    Adicionar Membro
+                </button>
+            </div>
+            <div id="teamGrid" class="team-grid">
+                <!-- Membros da equipe -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL: Nova Postagem -->
+    <div id="modalNewPost" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h3 class="modal-title">Novo aviso</h3>
+            <div class="form-group">
+                <label for="postTitle">Título</label>
+                <input type="text" id="postTitle" placeholder="Digite o título do aviso..." required>
+            </div>
+            <div class="form-group">
+                <label for="postContent">Conteúdo</label>
+                <textarea id="postContent" rows="6" placeholder="Escreva o conteúdo do aviso..." required></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="newPostCancelBtn">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="newPostSubmitBtn">Publicar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL: Novo Evento -->
+    <div id="modalNewEvent" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h3 class="modal-title">Novo Evento</h3>
+            <div class="form-group">
+                <label for="eventTitle">Nome do Evento</label>
+                <input type="text" id="eventTitle" placeholder="Ex: Culto de Domingo" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="eventDate">Data</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime">Horário</label>
+                    <input type="time" id="eventTime" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="eventType">Tipo</label>
+                <select id="eventType" required>
+                    <option value="Culto">Culto</option>
+                    <option value="Ensaio">Ensaio</option>
+                    <option value="Reunião">Reunião</option>
+                    <option value="Evento Especial">Evento Especial</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="newEventCancelBtn">Cancelar</button>
+                <button class="btn btn-primary" id="newEventCreateBtn">Criar Evento</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalNewMember" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h3 class="modal-title">Novo Membro</h3>
+            <div class="form-group">
+                <label for="memberName">Nome do Membro</label>
+                <input type="text" id="memberName" placeholder="Ex: João Silva" required>
+            </div>
+            <div class="form-group">
+                <label for="memberRole">Função</label>
+                <select name="memberRole" id="memberRole">
+                    <option value="Pastor">Pastor</option>
+                    <option value="Diácono">Diácono</option>
+                    <option value="Missionário">Missionário</option>
+                    <option value="Evangelista">Evangelista</option>
+                    <option value="Presbítero">Presbítero</option>
+                    <option value="Cantor">Cantor</option>
+                    <option value="Músico">Músico</option>
+                    <option value="Instrumentista">Instrumentista</option>
+                    <option value="Corista">Corista</option>
+                    <option value="Líder de Grupo">Líder de Grupo</option>
+                    <option value="Líder do coral">Líder do coral</option>
+                    <option value="Mídia">Mídia</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="newMemberCancelBtn">Cancelar</button>
+                <button class="btn btn-primary" id="newMemberCreateBtn">Criar Membro</button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="admin.js"></script>
+</body>
+
+</html>

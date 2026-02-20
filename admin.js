@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             upcomingEventsList.innerHTML = '';
             manageEventsList.innerHTML = '';
-            const response = await fetch('http://localhost:3000/events');
+            const response = await fetch('https://estante-jacomel.onrender.com/events');
             const data = await response.json();
 
 

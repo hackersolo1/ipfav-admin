@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function enviarNewEvent(newEventObject) {
         try {
-            const response = await fetch('https://estante-jacomel.onrender.com/eventsCreate', {
+            const response = await fetch('http://localhost:3000/eventsCreate', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=UTF-8'
                 },
                 body: JSON.stringify(newEventObject)
             });
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             upcomingEventsList.innerHTML = '';
             manageEventsList.innerHTML = '';
-            const response = await fetch('https://estante-jacomel.onrender.com/events');
+            const response = await fetch('http://localhost:3000/events');
             const data = await response.json();
 
 
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 newEventCard.classList.add('event-item');
                 newEventCard.innerHTML = `
-                <div class="event-header">
+                <div class="event-header-first">
                     <div class="event-content">
                         <div class="event-title">${event.titulo}</div>
                         <div class="event-date">${event.descricao}</div>
@@ -113,9 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newPostCard = document.createElement('div');
                 newPostCard.classList.add('post-item');
                 newPostCard.innerHTML = `
-                    <div class="post-header">
+                    <div class="post-header-first">
                         <div class="post-content">
                             <div class="post-title">${post.titulo}</div>
+                            <div class="post-meta">${post.autorPost} - ${post.dataPost}</div>
                         </div>
                     </div>
                     `
@@ -130,10 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 manageItemCard.innerHTML = `
                 <div class="manage-item-content">
                     <div class="manage-item-title">${post.titulo}</div>
-                    <div class="manage-item-meta">Sem autor</div>
+                    <div class="manage-item-meta">${post.autorPost}</div>
                 </div>
                 <div class="manage-item-actions">
-                    <button class="action-btn delete" id="deletePostBtn" data-post-id="${post.titulo}">
+                <button class="action-btn read" id="readPostBtn" data-post-id="${post.slugId}" title="Ver Post">
+                    <i data-lucide="eye"></i>
+                </button>
+                    <button class="action-btn delete" id="deletePostBtn" data-post-id="${post.titulo}" title="Deletar Post">
                         <i data-lucide="trash-2"></i>
                     </button>
                 </div>
@@ -148,10 +152,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     deletarPost(id);
                 });
             });
+
+            document.querySelectorAll('#readPostBtn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-post-id');
+                    lerPost(id);
+                });
+            });
         } catch (error) {
             console.error('Error:', error);
         }
     }
+
+    async function lerPost(id) {
+        try {
+            console.log(id);
+            const response = await fetch(`https://estante-jacomel.onrender.com/posts/${id}`);
+            const data = await response.json();
+
+            document.querySelector('.post-content p').innerText = data.conteudo;
+            document.querySelector('.post-author').innerText = data.autorPost;
+            document.querySelector('.post-date').innerText = data.dataPost;
+            document.querySelector('.post-title-container .post-title').innerText = data.titulo;
+
+            document.querySelector('.readPost').style.animation = 'slideUp 0.4s ease-out forwards';
+
+            console.log(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    document.querySelector('#readPostCloseBtn').addEventListener('click', () => {
+        document.querySelector('.readPost').style.animation = 'slideDown 0.4s ease-out forwards';
+    });
 
     async function eventCont() {
         try {
@@ -188,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('https://estante-jacomel.onrender.com/postsCreate', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=UTF-8'
                 },
                 body: JSON.stringify(newPostObject)
             });
@@ -204,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function deletarPost(id) {
         try {
-
+            console.log(id);
             const response = await fetch(`https://estante-jacomel.onrender.com/postsDelete/${id}`);
             const data = await response.json();
 
@@ -244,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('https://estante-jacomel.onrender.com/membersCreate', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=utf-8'
                 },
                 body: JSON.stringify(newMemberObject)
             });
@@ -411,28 +445,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventDate = document.querySelector('#eventDate');
     const eventTime = document.querySelector('#eventTime');
     const typeEvent = document.querySelector('#eventType');
+    const localEvent = document.querySelector('#localEvent');
     const newEventCreateBtn = document.querySelector('#newEventCreateBtn');
 
     newEventCreateBtn.addEventListener('click', () => {
-        if (eventTitle.value === '' || eventDate.value === '' || eventTime.value === '' || typeEvent.value === '') {
+        if (eventTitle.value === '' || eventDate.value === '' || eventTime.value === '' || typeEvent.value === '' || localEvent.value === '') {
             alert('Preencha todos os campos');
+        } else {
+            const newEventObject = {
+                titulo: eventTitle.value,
+                data_evento: eventDate.value,
+                hora_evento: eventTime.value,
+                descricao: typeEvent.value,
+                local_evento: localEvent.value
+            }
+
+            enviarNewEvent(newEventObject);
+
+            eventCont();
+
+            newEventModal.style.animation = 'slideDown 0.3s ease-in-out forwards';
+
+            eventTitle.value = '';
+            eventDate.value = '';
+            eventTime.value = '';
         }
 
-        const newEventObject = {
-            titulo: eventTitle.value,
-            data_evento: eventDate.value,
-            hora_evento: eventTime.value,
-            descricao: typeEvent.value
-        }
-
-        enviarNewEvent(newEventObject);
-        eventCont();
-
-        newEventModal.style.animation = 'slideDown 0.3s ease-in-out forwards';
-
-        eventTitle.value = '';
-        eventDate.value = '';
-        eventTime.value = '';
     });
 
     const newPostBtn = document.querySelector('#btnNewPost');
@@ -455,27 +493,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const postTitle = document.querySelector('#postTitle');
     const postContent = document.querySelector('#postContent');
+    const postAuthor = document.querySelector('#postAuthor');
+    const postDate = document.querySelector('#postDate');
     const newPostCreateBtn = document.querySelector('#newPostSubmitBtn');
 
     newPostCreateBtn.addEventListener('click', () => {
-        if (postTitle.value === '' || postContent.value === '') {
+        if (postTitle.value === '' || postContent.value === '' || postAuthor.value === '' || postDate.value === '') {
             alert('Preencha todos os campos');
+        } else {
+            const linkSlug = postTitle.value;
+            const slugID = encodeURIComponent(linkSlug);
+            const newPostObject = {
+                slugId: slugID,
+                titulo: postTitle.value,
+                conteudo: postContent.value,
+                autorPost: postAuthor.value,
+                dataPost: postDate.value
+            }
+
+            enviarNewPost(newPostObject);
+            postCont();
+            recentsPostsList.innerHTML = '';
+            postsManageList.innerHTML = '';
+            carregarPosts();
+            modalNewPost.style.animation = 'slideDown 0.3s ease-in-out forwards';
+
+            postTitle.value = '';
+            postContent.value = '';
         }
 
-        const newPostObject = {
-            titulo: postTitle.value,
-            conteudo: postContent.value
-        }
 
-        enviarNewPost(newPostObject);
-        postCont();
-        recentsPostsList.innerHTML = '';
-        postsManageList.innerHTML = '';
-        carregarPosts();
-        modalNewPost.style.animation = 'slideDown 0.3s ease-in-out forwards';
-
-        postTitle.value = '';
-        postContent.value = '';
     });
 
     btnHome.addEventListener('click', () => {

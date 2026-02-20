@@ -258,7 +258,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function deletarEvent(id) {
         try {
 
-            const response = await fetch(`https://estante-jacomel.onrender.com/eventsDelete/${id}`);
+            const response = await fetch(`https://estante-jacomel.onrender.com/eventsDelete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify({ id })
+            });
             const data = await response.json();
 
             lucide.createIcons();

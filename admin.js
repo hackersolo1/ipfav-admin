@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="action-btn read" id="readPostBtn" data-post-id="${post.slugId}" title="Ver Post">
                     <i data-lucide="eye"></i>
                 </button>
-                    <button class="action-btn delete" id="deletePostBtn" data-post-id="${post.slugId}" title="Deletar Post">
+                    <button class="action-btn delete" id="deletePostBtn" data-post-id="${post.titulo}" title="Deletar Post">
                         <i data-lucide="trash-2"></i>
                     </button>
                 </div>

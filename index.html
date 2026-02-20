@@ -203,6 +203,8 @@
             <div class="form-group">
                 <label for="postTitle">Título</label>
                 <input type="text" id="postTitle" placeholder="Digite o título do aviso..." required>
+                <input type="text" id="postAuthor" placeholder="Digite o autor do aviso..." required>
+                <input type="date" id="postDate" placeholder="Digite a data do aviso..." required>
             </div>
             <div class="form-group">
                 <label for="postContent">Conteúdo</label>
@@ -233,6 +235,10 @@
                 <div class="form-group">
                     <label for="eventTime">Horário</label>
                     <input type="time" id="eventTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="localEvent">Local</label>
+                    <input type="text" id="localEvent" placeholder="Ex: Igreja de São João" required>
                 </div>
             </div>
             <div class="form-group">
@@ -279,6 +285,27 @@
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" id="newMemberCancelBtn">Cancelar</button>
                 <button class="btn btn-primary" id="newMemberCreateBtn">Criar Membro</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="readPost">
+        <div class="readPostContainer">
+            <!-- Google, crie uma estrutura para o post, mas deixe vazio, pois será preenchido pelo JavaScript -->
+            <div class="post-header">
+                <div class="post-title-container">
+                    <div class="post-title" id="postTitle"></div>
+                </div>
+                <div class="post-meta">
+                    <span class="post-date"></span>
+                    <span class="post-author"></span>
+                </div>
+            </div>
+            <div class="post-content">
+                <p></p>
+            </div>
+            <div class="post-actions">
+                <button class="btn btn-primary" id="readPostCloseBtn">Fechar</button>
             </div>
         </div>
     </div>

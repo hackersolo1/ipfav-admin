@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function enviarNewEvent(newEventObject) {
         try {
-            const response = await fetch('http://localhost:3000/eventsCreate', {
+            const response = await fetch('https://estante-jacomel.onrender.com/eventsCreate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8'

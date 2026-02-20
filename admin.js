@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="action-btn read" id="readPostBtn" data-post-id="${post.slugId}" title="Ver Post">
                     <i data-lucide="eye"></i>
                 </button>
-                    <button class="action-btn delete" id="deletePostBtn" data-post-id="${post.titulo}" title="Deletar Post">
+                    <button class="action-btn delete" id="deletePostBtn" data-post-id="${post.slugId}" title="Deletar Post">
                         <i data-lucide="trash-2"></i>
                     </button>
                 </div>
@@ -239,7 +239,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function deletarPost(id) {
         try {
             console.log(id);
-            const response = await fetch(`https://estante-jacomel.onrender.com/postsDelete/${id}`);
+            const response = await fetch(`https://estante-jacomel.onrender.com/postsDelete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify({ id })
+            });
             const data = await response.json();
 
             lucide.createIcons();

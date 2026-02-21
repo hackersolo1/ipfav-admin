@@ -250,6 +250,17 @@
                     <option value="Evento Especial">Evento Especial</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="eventVideoLink">Link do Vídeo</label>
+                <input type="text" id="eventVideoLink" placeholder="Ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ" required>
+            </div>
+            <div class="form-group">
+                <label for="membersOrPublic">É público?</label>
+                <select name="membersOrPublic" id="membersOrPublic">
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" id="newEventCancelBtn">Cancelar</button>
                 <button class="btn btn-primary" id="newEventCreateBtn">Criar Evento</button>

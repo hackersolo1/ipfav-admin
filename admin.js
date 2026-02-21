@@ -458,10 +458,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventTime = document.querySelector('#eventTime');
     const typeEvent = document.querySelector('#eventType');
     const localEvent = document.querySelector('#localEvent');
+    const eventVideoLink = document.querySelector('#eventVideoLink');
+    const eventPublic = document.querySelector('#membersOrPublic');
     const newEventCreateBtn = document.querySelector('#newEventCreateBtn');
 
     newEventCreateBtn.addEventListener('click', () => {
-        if (eventTitle.value === '' || eventDate.value === '' || eventTime.value === '' || typeEvent.value === '' || localEvent.value === '') {
+        if (eventTitle.value === '' || eventDate.value === '' || eventTime.value === '' || typeEvent.value === '' || localEvent.value === '' || eventVideoLink.value === '' || eventPublic.value === '') {
             alert('Preencha todos os campos');
         } else {
             const newEventObject = {
@@ -469,7 +471,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 data_evento: eventDate.value,
                 hora_evento: eventTime.value,
                 descricao: typeEvent.value,
-                local_evento: localEvent.value
+                local_evento: localEvent.value,
+                videoLink: eventVideoLink.value,
+                publicOrMember: eventPublic.value
             }
 
             enviarNewEvent(newEventObject);
@@ -481,6 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
             eventTitle.value = '';
             eventDate.value = '';
             eventTime.value = '';
+            localEvent.value = '';
         }
 
     });

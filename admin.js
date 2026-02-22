@@ -467,12 +467,13 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Preencha todos os campos');
         } else {
             const newEventObject = {
+                console.log(eventVideoLink.value);
                 titulo: eventTitle.value,
                 data_evento: eventDate.value,
                 hora_evento: eventTime.value,
                 descricao: typeEvent.value,
                 local_evento: localEvent.value,
-                videoLink: eventVideoLink.value,
+                videoLink: document.querySelector('#eventVideoLink').value,
                 publicOrMember: eventPublic.value
             }
 

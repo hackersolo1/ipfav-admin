@@ -466,8 +466,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (eventTitle.value === '' || eventDate.value === '' || eventTime.value === '' || typeEvent.value === '' || localEvent.value === '' || eventVideoLink.value === '' || eventPublic.value === '') {
             alert('Preencha todos os campos');
         } else {
+            console.log(eventVideoLink.value);
             const newEventObject = {
-                console.log(eventVideoLink.value);
                 titulo: eventTitle.value,
                 data_evento: eventDate.value,
                 hora_evento: eventTime.value,
